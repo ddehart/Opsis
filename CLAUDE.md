@@ -7,6 +7,9 @@ xcodegen generate
 
 # Build the app
 xcodebuild -scheme Opsis -quiet build
+
+# Run tests with code coverage
+xcodebuild -scheme Opsis -enableCodeCoverage YES -quiet test
 ```
 
 ## Project Structure
@@ -20,6 +23,19 @@ xcodebuild -scheme Opsis -quiet build
 - Document-based app using `DocumentGroup`
 - Use `@Observable` (not `ObservableObject`), `NavigationStack` (not `NavigationView`)
 - Use async/await (not completion handlers)
+
+## Architecture
+- **Rendering pipeline**: `document.text` → `MarkdownRenderer` (cmark-gfm C API) → HTML fragment → `HTMLTemplate` (CSS + highlight.js) → `WebView` (native SwiftUI)
+- **Markdown parser**: `stackotter/swift-cmark-gfm` v1.0.2 — `import CMarkGFM` gives access to all C functions
+- **Syntax highlighting**: highlight.js 11.9.0 embedded as bundle resources with GitHub light/dark themes
+- **Dark mode**: CSS custom properties on `:root`, toggled via `@media (prefers-color-scheme: dark)` — follows system automatically
+
+## Gotchas & Lessons Learned
+- **Use native SwiftUI `WebView`, not `NSViewRepresentable` + `WKWebView`**: On macOS 26, `WKWebView` wrapped in `NSViewRepresentable` renders blank — no errors, no crashes, just nothing. Apple introduced `WebView` (SwiftUI) + `WebPage` (`@Observable`) in WWDC 2025. Import both `SwiftUI` and `WebKit` in the same file to get the cross-import overlay that provides `WebView`. Use `WebPage.load(html:baseURL:)` to load HTML strings.
+- **cmark-gfm C library is not thread-safe**: Concurrent calls to `cmark_gfm_core_extensions_ensure_registered()` and `cmark_find_syntax_extension()` race and cause intermittent failures (extensions silently not found). All cmark operations must be serialized — `MarkdownRenderer` uses `OSAllocatedUnfairLock` for this.
+- **`FileDocumentReadConfiguration` has no public initializer**: Can't construct it in unit tests. `MarkdownDocument` FileDocument conformance (init from config, fileWrapper roundtrip) can only be verified by running the app, not unit tested.
+- **`NSView.tag` is read-only on macOS 26**: Can't use tag-based view lookup for WKWebView in container patterns.
+- **App Sandbox + WebView**: Add `com.apple.security.network.client` entitlement — the web content process needs IPC even for local HTML.
 
 ## Key Notes
 - Never edit .pbxproj files directly — use xcodegen

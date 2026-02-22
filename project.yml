@@ -5,6 +5,11 @@ options:
     macOS: "26.0"
   xcodeVersion: "26.2"
 
+packages:
+  swift-cmark-gfm:
+    url: https://github.com/stackotter/swift-cmark-gfm
+    from: "1.0.2"
+
 targets:
   Opsis:
     type: application
@@ -12,6 +17,9 @@ targets:
     supportedDestinations: [macOS]
     sources:
       - Opsis
+    dependencies:
+      - package: swift-cmark-gfm
+        product: CMarkGFM
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: com.derekashmore.Opsis
@@ -23,3 +31,15 @@ targets:
         CODE_SIGN_ENTITLEMENTS: Opsis/Opsis.entitlements
         CODE_SIGN_STYLE: Automatic
         GENERATE_INFOPLIST_FILE: false
+
+  OpsisTests:
+    type: bundle.unit-test
+    platform: macOS
+    sources:
+      - OpsisTests
+    dependencies:
+      - target: Opsis
+    settings:
+      base:
+        SWIFT_VERSION: "6.2"
+        GENERATE_INFOPLIST_FILE: true
