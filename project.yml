@@ -1,0 +1,25 @@
+name: Opsis
+options:
+  bundleIdPrefix: com.derekashmore
+  deploymentTarget:
+    macOS: "26.0"
+  xcodeVersion: "26.2"
+
+targets:
+  Opsis:
+    type: application
+    platform: macOS
+    supportedDestinations: [macOS]
+    sources:
+      - Opsis
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.derekashmore.Opsis
+        PRODUCT_NAME: Opsis
+        MARKETING_VERSION: "0.1.0"
+        CURRENT_PROJECT_VERSION: "1"
+        SWIFT_VERSION: "6.2"
+        INFOPLIST_FILE: Opsis/Info.plist
+        CODE_SIGN_ENTITLEMENTS: Opsis/Opsis.entitlements
+        CODE_SIGN_STYLE: Automatic
+        GENERATE_INFOPLIST_FILE: false
