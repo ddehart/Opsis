@@ -19,6 +19,7 @@ xcodebuild -scheme Opsis -enableCodeCoverage YES -quiet test
 
 ## Conventions
 - Swift 6.2 / macOS 26 (Tahoe) — latest APIs only, no backward compatibility
+- **macOS 26 is beyond the model's training cutoff** — during planning, research whether proposed APIs and patterns are current before committing to an approach. Search SDK headers or the web to verify assumptions; established patterns may have been superseded.
 - SwiftUI lifecycle with `@main` app struct
 - Document-based app using `DocumentGroup`
 - Use `@Observable` (not `ObservableObject`), `NavigationStack` (not `NavigationView`)
