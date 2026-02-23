@@ -42,6 +42,7 @@ xcodebuild -scheme Opsis -quiet test
 - **Markdown parser**: `stackotter/swift-cmark-gfm` v1.0.2 — `import CMarkGFM` gives access to all C functions
 - **Syntax highlighting**: highlight.js 11.9.0 embedded as bundle resources with GitHub light/dark themes
 - **Dark mode**: CSS custom properties on `:root`, toggled via `@media (prefers-color-scheme: dark)` — follows system automatically
+- Planned features and implementation notes: @ROADMAP.md
 
 ## Gotchas & Lessons Learned
 - **Use native SwiftUI `WebView`, not `NSViewRepresentable` + `WKWebView`**: On macOS 26, `WKWebView` wrapped in `NSViewRepresentable` renders blank — no errors, no crashes, just nothing. Apple introduced `WebView` (SwiftUI) + `WebPage` (`@Observable`) in WWDC 2025. Import both `SwiftUI` and `WebKit` in the same file to get the cross-import overlay that provides `WebView`. Use `WebPage.load(html:baseURL:)` to load HTML strings.
@@ -52,9 +53,25 @@ xcodebuild -scheme Opsis -quiet test
 - **Integration tests need `TEST_HOST`**: WKWebView requires a running host app process. `OpsisIntegrationTests` sets `TEST_HOST` to the built Opsis.app binary. Unit tests (`OpsisTests`) intentionally have no host app for speed. Put new tests in the right target based on whether they need WebKit.
 - **xcodegen generates one scheme**: All test targets are test actions under the `Opsis` scheme — there are no per-target schemes. Use `-only-testing TargetName` to run a specific test suite.
 
-## Key Notes
-- Never edit .pbxproj files directly — use xcodegen
-- Run `xcodegen generate` after adding or removing source files
-- Use `--quiet` flag with xcodebuild to avoid flooding context
-- **Keep `README.md` up to date**: This is a public repo. When adding features, changing build steps, updating requirements, or modifying the tech stack, update the README to reflect the current state of the project.
-- **Delegate to dev-workflow agents**: Use specialized agents for git operations (commits, branches, PRs), test execution, and Linear issues. This preserves main thread context and keeps the conversation focused on high-level coordination.
+## Git Workflow
+- Commit messages: conventional commits (`feat:`, `fix:`, `docs:`, `test:`, `refactor:`, `chore:`)
+- Branch naming: `<type>/<description>` (e.g., `feat/auto-refresh`)
+- All tests must pass before committing
+- Delegate git operations to dev-workflow agents to preserve main thread context
+
+## Boundaries
+### Always
+- Run `xcodegen generate` after adding/removing source files
+- Run tests before committing
+- Use `--quiet` with xcodebuild to avoid flooding context
+- Keep `README.md` current — this is a public repo
+
+### Ask First
+- Adding new Swift package dependencies
+- Changing the rendering pipeline architecture
+- Modifying entitlements or sandbox configuration
+
+### Never
+- Edit .pbxproj files directly — use xcodegen
+- Use `NSViewRepresentable` + `WKWebView` (renders blank on macOS 26)
+- Use `ObservableObject` or `NavigationView` (deprecated patterns)
