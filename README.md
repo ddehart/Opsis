@@ -30,6 +30,24 @@ xcodegen generate
 xcodebuild -scheme Opsis build
 ```
 
+## Testing
+
+Three test layers cover the rendering pipeline end-to-end:
+
+```bash
+# Unit tests — MarkdownRenderer, HTMLTemplate, MarkdownDocument
+xcodebuild -scheme Opsis -only-testing OpsisTests test
+
+# Integration tests — full pipeline verified via WKWebView + evaluateJavaScript
+xcodebuild -scheme Opsis -only-testing OpsisIntegrationTests test
+
+# UI tests — app launch, document opening, rendered content visibility
+xcodebuild -scheme Opsis -only-testing OpsisUITests test
+
+# All tests
+xcodebuild -scheme Opsis test
+```
+
 ## Tech Stack
 
 - Swift 6.2 / SwiftUI with `DocumentGroup`
