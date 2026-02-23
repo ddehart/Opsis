@@ -1,0 +1,110 @@
+<svg width="1024" height="1024" viewBox="0 0 1024 1024" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bgGrad" x1="120" y1="96" x2="908" y2="928" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#1C2534"/>
+      <stop offset="1" stop-color="#223149"/>
+    </linearGradient>
+
+    <filter id="pageShadow" x="200" y="128" width="624" height="800" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feDropShadow dx="0" dy="14" stdDeviation="18" flood-color="#020617" flood-opacity="0.20"/>
+    </filter>
+
+    <clipPath id="pageClip">
+      <path d="M240 208C240 181.49 261.49 160 288 160H632L780 308V818C780 844.51 758.51 866 732 866H288C261.49 866 240 844.51 240 818V208Z"/>
+    </clipPath>
+
+    <!-- Softer lens contrast -->
+    <radialGradient id="lensFill" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(474 471) rotate(38) scale(252 242)">
+      <stop offset="0" stop-color="#F5F8FE"/>
+      <stop offset="0.36" stop-color="#ECF1FB"/>
+      <stop offset="0.74" stop-color="#E3E9F6"/>
+      <stop offset="1" stop-color="#DCE3F0"/>
+    </radialGradient>
+
+    <linearGradient id="lensRing" x1="374" y1="372" x2="664" y2="650" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#B1B9D0"/>
+      <stop offset="0.35" stop-color="#9EA8C0"/>
+      <stop offset="0.72" stop-color="#8D97B1"/>
+      <stop offset="1" stop-color="#A4AEC8"/>
+    </linearGradient>
+
+    <radialGradient id="irisFill" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(492 488) rotate(30) scale(164 164)">
+      <stop offset="0" stop-color="#EDF2FD"/>
+      <stop offset="1" stop-color="#D9E1F0"/>
+    </radialGradient>
+
+    <filter id="lensGlow" x="330" y="330" width="364" height="364" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feGaussianBlur stdDeviation="10"/>
+    </filter>
+
+    <!-- Page edge tint / shading -->
+    <linearGradient id="pageEdgeShade" x1="602" y1="350" x2="760" y2="850" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#D8E0EB" stop-opacity="0"/>
+      <stop offset="0.45" stop-color="#D8E0EB" stop-opacity="0.20"/>
+      <stop offset="1" stop-color="#C7D1DF" stop-opacity="0.42"/>
+    </linearGradient>
+
+    <linearGradient id="pageBottomShade" x1="340" y1="812" x2="744" y2="858" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#E2E8F0" stop-opacity="0"/>
+      <stop offset="0.55" stop-color="#D5DEE9" stop-opacity="0.20"/>
+      <stop offset="1" stop-color="#C8D2E0" stop-opacity="0.35"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Base -->
+  <rect x="64" y="64" width="896" height="896" rx="220" fill="url(#bgGrad)"/>
+
+  <!-- Document -->
+  <g filter="url(#pageShadow)">
+    <path d="M240 208C240 181.49 261.49 160 288 160H632L780 308V818C780 844.51 758.51 866 732 866H288C261.49 866 240 844.51 240 818V208Z" fill="#F8FAFC"/>
+
+    <!-- Fold corner -->
+    <path d="M632 160V260C632 286.51 653.49 308 680 308H780L632 160Z" fill="#E7ECF3"/>
+    <path d="M632 160V260C632 286.51 653.49 308 680 308H780" stroke="#D1D8E3" stroke-width="8" stroke-linejoin="round"/>
+
+    <!-- Subtle page edge dimension (right/bottom) -->
+    <g clip-path="url(#pageClip)">
+      <path d="M636 160L780 304V818C780 844.51 758.51 866 732 866H676C704 848 720 822 720 792V350C720 318 695 292 663 292H636V160Z" fill="url(#pageEdgeShade)"/>
+      <rect x="300" y="812" width="480" height="54" fill="url(#pageBottomShade)"/>
+    </g>
+
+    <!-- Expanded text placeholders (evenly distributed) -->
+    <g clip-path="url(#pageClip)" opacity="0.40" stroke="#B8C2D0" stroke-width="16" stroke-linecap="round">
+      <path d="M332 360H596"/>
+      <path d="M332 412H570"/>
+      <path d="M332 464H602"/>
+      <path d="M332 516H554"/>
+      <path d="M332 568H588"/>
+      <path d="M332 620H548"/>
+      <path d="M332 672H598"/>
+      <path d="M332 724H562"/>
+      <path d="M332 776H586"/>
+    </g>
+  </g>
+
+  <!-- Lens (centered on icon) -->
+  <circle cx="512" cy="512" r="160" fill="#AAB4DA" opacity="0.10" filter="url(#lensGlow)"/>
+  <circle cx="512" cy="512" r="166" fill="url(#lensFill)" stroke="url(#lensRing)" stroke-width="24"/>
+
+  <!-- Glass highlights -->
+  <path d="M398 432C426 400 470 380 516 379C545 379 572 386 596 398"
+        stroke="#FFFFFF" stroke-opacity="0.50" stroke-width="14" stroke-linecap="round"/>
+  <path d="M418 452C443 423 480 406 519 405"
+        stroke="#FFFFFF" stroke-opacity="0.24" stroke-width="8" stroke-linecap="round"/>
+
+  <!-- Inner shadow crescent -->
+  <path d="M625 573C608 605 576 630 536 640C507 647 477 644 450 633"
+        stroke="#7E89B0" stroke-opacity="0.18" stroke-width="18" stroke-linecap="round"/>
+
+  <!-- Iris -->
+  <circle cx="512" cy="512" r="106" fill="url(#irisFill)"/>
+  <circle cx="512" cy="512" r="106" stroke="#6F7AA8" stroke-opacity="0.22" stroke-width="6"/>
+
+  <!-- Glint -->
+  <circle cx="452" cy="452" r="10" fill="#FFFFFF" fill-opacity="0.38"/>
+  <circle cx="452" cy="452" r="4" fill="#FFFFFF" fill-opacity="0.75"/>
+
+  <!-- Chevron (centered with lens) -->
+  <path d="M466 464L570 512L466 560"
+        stroke="#2C2A72" stroke-width="34" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

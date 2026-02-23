@@ -16,11 +16,8 @@ Watch the open file for modifications and re-render automatically. This is the c
 - Debounce rapid saves (e.g., 200ms)
 - Pairs with scroll position preservation (below)
 
-### Custom UTType for Markdown Files
-Register a proper UTType so Opsis appears in Finder's "Open With" for `.md` files. Currently declares `.plainText` which is too broad.
-- Define UTType conforming to `public.plain-text` for `.md`, `.markdown`, `.mdown`
-- Add `UTExportedTypeDeclarations` to Info.plist
-- Update `MarkdownDocument.readableContentTypes`
+### ~~Custom UTType for Markdown Files~~ (done)
+Registered `net.daringfireball.markdown` as imported UTType. Opsis now appears in Finder's "Open With" for `.md`, `.markdown`, `.mdown` files with `Viewer` role and `Alternate` handler rank.
 
 ## Future Ideas
 

@@ -52,6 +52,7 @@ xcodebuild -scheme Opsis -quiet test
 - **App Sandbox + WebView**: Add `com.apple.security.network.client` entitlement — the web content process needs IPC even for local HTML.
 - **Integration tests need `TEST_HOST`**: WKWebView requires a running host app process. `OpsisIntegrationTests` sets `TEST_HOST` to the built Opsis.app binary. Unit tests (`OpsisTests`) intentionally have no host app for speed. Put new tests in the right target based on whether they need WebKit.
 - **xcodegen generates one scheme**: All test targets are test actions under the `Opsis` scheme — there are no per-target schemes. Use `-only-testing TargetName` to run a specific test suite.
+- **Unit tests can't see app's UTImportedTypeDeclarations**: `OpsisTests` has no host app, so `UTType(filenameExtension:)` only resolves extensions known system-wide (e.g., `.md` and `.markdown` from Notes/Xcode). Extensions declared only in the app's Info.plist (e.g., `.mdown`) won't resolve in unit tests. Test those in integration tests (which have `TEST_HOST`) or test identifier equality rather than extension resolution.
 
 ## Git Workflow
 - Commit messages: conventional commits (`feat:`, `fix:`, `docs:`, `test:`, `refactor:`, `chore:`)
@@ -65,6 +66,7 @@ xcodebuild -scheme Opsis -quiet test
 - Run tests before committing
 - Use `--quiet` with xcodebuild to avoid flooding context
 - Keep `README.md` current — this is a public repo
+- Include a documentation step in every plan — update ROADMAP.md (mark progress), CLAUDE.md (new gotchas/lessons), MEMORY.md (status changes), and README.md (user-facing changes)
 
 ### Ask First
 - Adding new Swift package dependencies

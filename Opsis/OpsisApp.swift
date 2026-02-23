@@ -1,6 +1,12 @@
 import SwiftUI
 import UniformTypeIdentifiers
 
+extension UTType {
+    static var markdown: UTType {
+        UTType(importedAs: "net.daringfireball.markdown")
+    }
+}
+
 @main
 struct OpsisApp: App {
     var body: some Scene {
@@ -11,7 +17,7 @@ struct OpsisApp: App {
 }
 
 struct MarkdownDocument: FileDocument {
-    static var readableContentTypes: [UTType] { [.plainText] }
+    static var readableContentTypes: [UTType] { [.markdown] }
 
     var text: String
 

@@ -12,6 +12,7 @@ The name comes from the Greek *opsis* (opsis), meaning "sight" or "view."
 - **Syntax highlighting** -- 20+ languages powered by highlight.js
 - **Dark mode** -- follows system appearance automatically
 - **Document-based** -- double-click `.md` files or use File > Open
+- **Finder integration** -- registers as a viewer for `.md`, `.markdown`, and `.mdown` files. After first launch, Opsis appears in Finder's "Open With" menu
 - **Smart typography** -- curly quotes, en-dashes, and em-dashes
 - **GitHub-styled rendering** -- headings, blockquotes, code blocks, tables, and task lists
 - **External links** -- links open in your default browser, not in-app
