@@ -2,13 +2,8 @@
 
 ## Next Up
 
-### Visual Design Pass
-Use the frontend-design skill to restyle the rendered markdown. The current GitHub-inspired CSS is functional but clinical. Goals:
-- Serif font for body text (monospace stays for code)
-- Better spacing and padding
-- Warmer, more readable aesthetic
-- Preserve dark mode support and highlight.js integration
-- Changes are in `Opsis/HTMLTemplate.swift` (inline CSS)
+### ~~Visual Design Pass~~ (done)
+Restyled from GitHub-inspired to editorial/literary aesthetic. Charter serif for body text, San Francisco sans-serif for headings, warm cream/charcoal color palette, narrower content width (720px), italic blockquotes, horizontal-rule-only tables, decorative section breaks. All changes in `Opsis/HTMLTemplate.swift` inline CSS.
 
 ### Auto-Refresh on File Change
 Watch the open file for modifications and re-render automatically. This is the core feature that makes Opsis useful as a live preview companion to any text editor.

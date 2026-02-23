@@ -44,6 +44,27 @@ xcodebuild -scheme Opsis -quiet test
 - **Dark mode**: CSS custom properties on `:root`, toggled via `@media (prefers-color-scheme: dark)` — follows system automatically
 - Planned features and implementation notes: @ROADMAP.md
 
+## Design Philosophy
+The visual aesthetic is **editorial/literary** — a beautifully typeset book, not a developer tool. The interface should disappear; you notice nothing at first, then realize everything feels exactly right.
+
+### Principles
+- **Typography drives the design**: Charter serif for body text (warm, screen-optimized, bundled on macOS). San Francisco sans-serif for headings — the serif/sans contrast creates hierarchy naturally without decorative elements.
+- **Warm neutrals, no extremes**: Cream backgrounds instead of pure white, warm charcoal instead of cold dark. Ink-like text colors. The palette should feel like paper, not a screen.
+- **Spacing serves reading**: Narrower content width (720px) for optimal serif line length (~65-75 chars). Generous line height (1.75) because serif needs more leading. Heading margins create breathing room.
+- **Restraint over decoration**: No border-bottom on headings (that's GitHub's identity, not ours). Tables use horizontal rules only. Decorative elements (HR ornament, blockquote marks) should enhance reading, not distract.
+- **Italic blockquotes with decorative open-quote**: Classic editorial treatment using CSS-Tricks' battle-tested `::before` pattern (`content: open-quote`, `line-height: 0.1em`, `vertical-align: -0.4em`, `blockquote p:first-child { display: inline }`).
+- **Subtle links**: Always underlined (accessibility) but with muted `text-decoration-color` and offset for subtlety.
+- **Editorial section breaks**: HR uses gradient-fade line (transparent → visible → transparent) with a centered ✦ ornament masked over it.
+- **OpenType features**: Ligatures, kerning, and old-style numerals enabled on body text (`font-feature-settings`), reset on code. Hanging punctuation via `hanging-punctuation: first last`.
+
+### Applying These Principles
+When adding new visual elements, ask: "Would this feel at home in a well-designed book or literary magazine?" If it feels like a web app or developer tool, reconsider. Monospace code blocks are the one exception — they should feel technically precise while still being warm (soft border-radius, subtle borders).
+
+### CSS Implementation Notes
+- **Borrow battle-tested patterns** rather than inventing positioning from scratch. The CSS-Tricks blockquote pattern and the gradient-fade HR pattern are canonical for good reason.
+- **Avoid float-based drop caps** — they break line rhythm and create awkward second-line indentation. The visual hierarchy cost outweighs the editorial signal.
+- **CSS Unicode escapes in Swift strings** need double-escaping: `"\\201C"` in the Swift string literal produces `"\201C"` in the CSS output.
+
 ## Gotchas & Lessons Learned
 - **Use native SwiftUI `WebView`, not `NSViewRepresentable` + `WKWebView`**: On macOS 26, `WKWebView` wrapped in `NSViewRepresentable` renders blank — no errors, no crashes, just nothing. Apple introduced `WebView` (SwiftUI) + `WebPage` (`@Observable`) in WWDC 2025. Import both `SwiftUI` and `WebKit` in the same file to get the cross-import overlay that provides `WebView`. Use `WebPage.load(html:baseURL:)` to load HTML strings.
 - **cmark-gfm C library is not thread-safe**: Concurrent calls to `cmark_gfm_core_extensions_ensure_registered()` and `cmark_find_syntax_extension()` race and cause intermittent failures (extensions silently not found). All cmark operations must be serialized — `MarkdownRenderer` uses `OSAllocatedUnfairLock` for this.

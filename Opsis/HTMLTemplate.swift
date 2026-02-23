@@ -34,74 +34,166 @@ enum HTMLTemplate {
         <meta name="color-scheme" content="light dark">
         <style>
         :root {
-            --text-color: #1f2328;
-            --bg-color: #ffffff;
-            --link-color: #0969da;
-            --border-color: #d0d7de;
-            --blockquote-color: #656d76;
-            --code-bg: #eff1f3;
-            --table-border: #d0d7de;
-            --table-alt-bg: #f6f8fa;
+            --text-color: #2c2825;
+            --bg-color: #faf8f5;
+            --link-color: #3b6ea5;
+            --border-color: #ddd7cf;
+            --blockquote-color: #7d766d;
+            --code-bg: #f0ede7;
+            --code-border: #e0dbd4;
+            --table-border: #ddd7cf;
+            --table-alt-bg: #f4f1ec;
         }
         @media (prefers-color-scheme: dark) {
             :root {
-                --text-color: #e6edf3;
-                --bg-color: #0d1117;
-                --link-color: #4493f8;
-                --border-color: #3d444d;
-                --blockquote-color: #9198a1;
-                --code-bg: #161b22;
-                --table-border: #3d444d;
-                --table-alt-bg: #161b22;
+                --text-color: #e0dbd4;
+                --bg-color: #1c1b19;
+                --link-color: #7fb5e0;
+                --border-color: #3a3633;
+                --blockquote-color: #9b9489;
+                --code-bg: #252220;
+                --code-border: #3a3633;
+                --table-border: #3a3633;
+                --table-alt-bg: #222019;
             }
         }
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
-            font-size: 16px;
-            line-height: 1.6;
+            font-family: Charter, "Iowan Old Style", Palatino, Georgia, serif;
+            font-size: 17px;
+            line-height: 1.75;
             color: var(--text-color);
             background-color: var(--bg-color);
-            max-width: 880px;
+            max-width: 720px;
             margin: 0 auto;
-            padding: 32px;
+            padding: 48px 40px;
+            -webkit-font-smoothing: antialiased;
+            hanging-punctuation: first last;
+            font-feature-settings: "liga" 1, "clig" 1, "kern" 1, "onum" 1;
         }
-        a { color: var(--link-color); text-decoration: none; }
-        a:hover { text-decoration: underline; }
-        h1, h2, h3, h4, h5, h6 { margin-top: 24px; margin-bottom: 16px; font-weight: 600; }
-        h1 { font-size: 2em; border-bottom: 1px solid var(--border-color); padding-bottom: 0.3em; }
-        h2 { font-size: 1.5em; border-bottom: 1px solid var(--border-color); padding-bottom: 0.3em; }
-        h3 { font-size: 1.25em; }
+        a {
+            color: var(--link-color);
+            text-decoration: underline;
+            text-decoration-color: color-mix(in srgb, var(--link-color) 40%, transparent);
+            text-underline-offset: 0.15em;
+        }
+        a:hover {
+            text-decoration-color: var(--link-color);
+        }
+        h1, h2, h3, h4, h5, h6 {
+            font-family: -apple-system, "Helvetica Neue", sans-serif;
+            margin-top: 40px;
+            margin-bottom: 12px;
+            font-weight: 600;
+            line-height: 1.3;
+        }
+        h1 {
+            font-size: 1.8em;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            margin-bottom: 16px;
+        }
+        h2 {
+            font-size: 1.4em;
+            padding-top: 8px;
+        }
+        h3 { font-size: 1.15em; }
         h4 { font-size: 1em; }
-        h5 { font-size: 0.875em; }
-        h6 { font-size: 0.85em; color: var(--blockquote-color); }
-        p { margin-top: 0; margin-bottom: 16px; }
+        h5 { font-size: 0.9em; text-transform: uppercase; letter-spacing: 0.05em; font-weight: 600; }
+        h6 { font-size: 0.85em; font-variant: small-caps; letter-spacing: 0.03em; color: var(--blockquote-color); }
+        p { margin-top: 0; margin-bottom: 20px; }
         code {
             font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, monospace;
-            font-size: 85%;
+            font-size: 83%;
             background-color: var(--code-bg);
-            padding: 0.2em 0.4em;
-            border-radius: 6px;
+            padding: 0.15em 0.35em;
+            border-radius: 4px;
+            border: 1px solid var(--code-border);
+            font-feature-settings: "liga" 0, "onum" 0;
         }
         pre {
             background-color: var(--code-bg);
-            padding: 16px;
-            border-radius: 6px;
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid var(--code-border);
             overflow-x: auto;
-            line-height: 1.45;
+            line-height: 1.5;
         }
-        pre code { background: none; padding: 0; font-size: 85%; }
+        pre code {
+            background: none;
+            padding: 0;
+            font-size: 83%;
+            border: none;
+        }
         blockquote {
-            margin: 0 0 16px 0;
-            padding: 0 1em;
+            margin: 0 0 20px 0;
+            padding: 0.5em 1.2em;
             color: var(--blockquote-color);
-            border-left: 0.25em solid var(--border-color);
+            font-style: italic;
+            quotes: "\\201C" "\\201D";
         }
-        table { border-collapse: collapse; width: 100%; margin: 16px 0; }
-        th, td { border: 1px solid var(--table-border); padding: 6px 13px; }
+        blockquote::before {
+            content: open-quote;
+            font-size: 3em;
+            font-family: Charter, Georgia, serif;
+            color: var(--border-color);
+            line-height: 0.1em;
+            margin-right: 0.15em;
+            vertical-align: -0.4em;
+        }
+        blockquote p:first-child {
+            display: inline;
+        }
+        blockquote code { font-style: normal; }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 24px 0;
+            font-size: 0.92em;
+        }
+        th, td {
+            border-bottom: 1px solid var(--table-border);
+            padding: 10px 16px;
+            text-align: left;
+        }
+        th {
+            font-family: -apple-system, "Helvetica Neue", sans-serif;
+            font-weight: 600;
+            font-size: 0.85em;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            border-bottom-width: 2px;
+        }
         tr:nth-child(even) { background-color: var(--table-alt-bg); }
-        th { font-weight: 600; }
-        img { max-width: 100%; }
-        hr { border: none; border-top: 1px solid var(--border-color); margin: 24px 0; }
+        img { max-width: 100%; border-radius: 4px; }
+        hr {
+            border: none;
+            margin: 48px 0;
+            height: 1.5em;
+            position: relative;
+            outline: 0;
+            text-align: center;
+        }
+        hr::before {
+            content: "";
+            background: linear-gradient(to right, transparent, var(--border-color), transparent);
+            position: absolute;
+            left: 0;
+            top: 50%;
+            width: 100%;
+            height: 1px;
+        }
+        hr::after {
+            content: "\\2726";
+            display: inline-block;
+            position: relative;
+            padding: 0 0.6em;
+            line-height: 1.5em;
+            color: var(--blockquote-color);
+            background: var(--bg-color);
+            font-size: 0.85em;
+        }
+        ul, ol { padding-left: 1.5em; }
+        li { margin-bottom: 0.3em; }
         li:has(> input[type="checkbox"]) {
             list-style: none;
             margin-left: -1.5em;
@@ -110,6 +202,7 @@ enum HTMLTemplate {
             margin-right: 0.4em;
             pointer-events: none;
         }
+        strong { font-weight: 700; }
         \(lightCSS)
         @media (prefers-color-scheme: dark) {
         \(darkCSS)
