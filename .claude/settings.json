@@ -1,0 +1,7 @@
+{
+  "enabledPlugins": {
+    "frontend-design@claude-plugins-official": true,
+    "dev-workflow@ddehart-plugins": true,
+    "meta-claude@ddehart-plugins": true
+  }
+}
